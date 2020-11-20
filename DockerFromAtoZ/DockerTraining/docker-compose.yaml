@@ -1,6 +1,7 @@
 version: '3.8'
                   
 services:
+    #Opened service as a Presentation layer
     training-api:
         image: training-api
         environment:
@@ -10,7 +11,8 @@ services:
             dockerfile: ./DockerTraining/Dockerfile
             context: .
         ports:
-            - '9001:80'
+            - '9001:8001'
+    #Closed service as a Business layer
     training-guid-generator:
         image: training-guid-generator
         environment:
@@ -20,12 +22,17 @@ services:
             dockerfile: ./DockerTraining.GuidGeneratorService/Dockerfile
             context: .
         ports:
-            - '9002:80'
-    training-redis:
+            - '9002:8002'
+        depends_on:
+            - training-redis-master
+    #Closed service as a Data layer
+    training-redis-master:
         image: bitnami/redis:latest
         environment:
             - REDIS_REPLICATION_MODE=master
             - ALLOW_EMPTY_PASSWORD=yes
-        container_name: training-redis-master
+        container_name: training-redis
         ports:
             - "6379:6379"
+        volumes:
+            - D:/redis:/bitnami/redis/data 
