@@ -10,21 +10,26 @@ namespace DockerTraining.Controllers
     {
         private readonly ISender _sender;
 
+        public record ValueRequest(string Value);
+
         public ValueController(ISender sender)
         {
             _sender = sender;
         }
 
         [HttpGet]
-        public Task GetAllValues()
+        public async Task<IActionResult> GetAllValues()
         {
-            return _sender.GetAll();
+            var result = await _sender.GetAll();
+            return Ok(result);
         }
 
         [HttpPost]
-        public Task AddNewValue([FromBody]string value)
+        public async Task<IActionResult> AddNewValue([FromBody] ValueRequest request)
         {
-            return _sender.SaveOne(value);
+            var result = await _sender.SaveOne(request.Value);
+            if (result) return Ok();
+            return Problem();
         }
     }
 }

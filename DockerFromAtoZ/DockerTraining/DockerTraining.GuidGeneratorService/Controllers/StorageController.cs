@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using StackExchange.Redis;
@@ -13,6 +14,8 @@ namespace DockerTraining.GuidGeneratorService.Controllers
         private const string SetName = "DockerTraining";
         private readonly RedisKey RedisSetKey = new RedisKey(SetName);
 
+        public record StorageRequest(string Content);
+
         public StorageController(IConnectionMultiplexer redis)
         {
             _redis = redis;
@@ -26,9 +29,9 @@ namespace DockerTraining.GuidGeneratorService.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> AddValue([FromBody] string value)
+        public async Task<IActionResult> AddValue([FromBody] StorageRequest request)
         {
-            var redisValue = new RedisValue(value);
+            var redisValue = new RedisValue($"{request.Content}_{Guid.NewGuid()}");
             var isSuccess = await _redis.GetDatabase()?.SetAddAsync(RedisSetKey, redisValue);
 
             if (isSuccess) return Ok();

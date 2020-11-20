@@ -7,6 +7,7 @@ using DockerTraining.Interfaces;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 
 namespace DockerTraining.Classes
 {
@@ -19,7 +20,6 @@ namespace DockerTraining.Classes
         public GuidGeneratorServiceSender(IHttpClientFactory httpClientFactory, IOptions<GuidGeneratorSettings> settings,
             ILogger<GuidGeneratorServiceSender> logger)
         {
-
             _settings = settings.Value;
 
             _client = httpClientFactory.CreateClient();
@@ -39,30 +39,37 @@ namespace DockerTraining.Classes
             }
             catch (Exception e)
             {
-                _logger.LogError(e, $"Cannot send request to the server: ${_client.BaseAddress.AbsolutePath}");
+                _logger.LogError(e, $"Cannot send request to the server");
                 throw;
             }
         }
 
-        public async Task SaveOne(string value)
+        public async Task<bool> SaveOne(string value)
         {
             if (string.IsNullOrWhiteSpace(_settings.Name) || string.IsNullOrWhiteSpace(value))
                 throw new ArgumentNullException();
 
             try
             {
+                var jsonData = new {content = value};
                 var request = new HttpRequestMessage(HttpMethod.Post, _settings.Name)
                 {
-                    Content = new StringContent(value, Encoding.UTF8, "applicaiton/json")
+                    Content = new StringContent(JsonConvert.SerializeObject(jsonData), Encoding.UTF8, "application/json")
                 };
                 var response = await _client.SendAsync(request);
                 if (!response.IsSuccessStatusCode)
+                {
                     _logger.LogWarning($"Returned status code: {response.StatusCode}");
+                    return false;
+                }
             }
             catch (Exception e)
             {
-                _logger.LogError(e, $"Cannot send request to the server: ${_client.BaseAddress.AbsolutePath}");
+                _logger.LogError(e, $"Cannot send request to the server");
+                return false;
             }
+
+            return true;
         }
 
         public void Dispose()

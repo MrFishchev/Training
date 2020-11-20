@@ -1,0 +1,31 @@
+version: '3.8'
+                  
+services:
+    training-api:
+        image: training-api
+        environment:
+            - ASPNETCORE_ENVIRONMENT=Development
+        container_name: training-api
+        build:
+            dockerfile: ./DockerTraining/Dockerfile
+            context: .
+        ports:
+            - '9001:80'
+    training-guid-generator:
+        image: training-guid-generator
+        environment:
+            - ASPNETCORE_ENVIRONMENT=Development
+        container_name: training-guid-generator
+        build:
+            dockerfile: ./DockerTraining.GuidGeneratorService/Dockerfile
+            context: .
+        ports:
+            - '9002:80'
+    training-redis:
+        image: bitnami/redis:latest
+        environment:
+            - REDIS_REPLICATION_MODE=master
+            - ALLOW_EMPTY_PASSWORD=yes
+        container_name: training-redis-master
+        ports:
+            - "6379:6379"

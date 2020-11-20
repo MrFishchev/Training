@@ -18,6 +18,6 @@ namespace DockerTraining.Interfaces
         /// </summary>
         /// <param name="value"></param>
         /// <returns></returns>
-        Task SaveOne(string value);
+        Task<bool> SaveOne(string value);
     }
 }
