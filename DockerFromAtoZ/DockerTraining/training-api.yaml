@@ -1,0 +1,14 @@
+version: '3.8'
+                  
+services:
+    #Opened service as a Presentation layer
+    training-api:
+        image: training-api
+        environment:
+            - ASPNETCORE_ENVIRONMENT=Development
+        container_name: training-api
+        build:
+            dockerfile: ./DockerTraining/Dockerfile
+            context: .
+        ports:
+            - '9001:8001'

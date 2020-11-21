@@ -1,17 +1,6 @@
 version: '3.8'
                   
 services:
-    #Opened service as a Presentation layer
-    training-api:
-        image: training-api
-        environment:
-            - ASPNETCORE_ENVIRONMENT=Development
-        container_name: training-api
-        build:
-            dockerfile: ./DockerTraining/Dockerfile
-            context: .
-        ports:
-            - '9001:8001'
     #Closed service as a Business layer
     training-guid-generator:
         image: training-guid-generator
@@ -22,7 +11,7 @@ services:
             dockerfile: ./DockerTraining.GuidGeneratorService/Dockerfile
             context: .
         ports:
-            - '9002:8002'
+            - '9002:8001'
         depends_on:
             - training-redis-master
     #Closed service as a Data layer
@@ -32,7 +21,7 @@ services:
             - REDIS_REPLICATION_MODE=master
             - ALLOW_EMPTY_PASSWORD=yes
         container_name: training-redis
-        ports:
-            - "6379:6379"
+        expose:
+            - '6379'
         volumes:
             - D:/redis:/bitnami/redis/data 
