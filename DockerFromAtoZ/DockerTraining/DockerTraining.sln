@@ -3,13 +3,16 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30709.132
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DockerTraining", "DockerTraining\DockerTraining.csproj", "{2A8E80FD-434A-4D23-8B4C-5A9C178BDEF5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DockerTraining", "DockerTraining\DockerTraining.csproj", "{2A8E80FD-434A-4D23-8B4C-5A9C178BDEF5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DockerTraining.GuidGeneratorService", "DockerTraining.GuidGeneratorService\DockerTraining.GuidGeneratorService.csproj", "{BB24C205-E44C-4FDF-B4F2-F078ECFA032B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DockerTraining.GuidGeneratorService", "DockerTraining.GuidGeneratorService\DockerTraining.GuidGeneratorService.csproj", "{BB24C205-E44C-4FDF-B4F2-F078ECFA032B}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{059F91C2-6B35-4C6B-B722-B3F9B4DE385A}"
 	ProjectSection(SolutionItems) = preProject
-		docker-compose.yaml = docker-compose.yaml
+		.env = .env
+		docker-images.sh = docker-images.sh
+		training-api.yaml = training-api.yaml
+		training-guid-generator.yaml = training-guid-generator.yaml
 	EndProjectSection
 EndProject
 Global
