@@ -1,0 +1,31 @@
+using System;
+
+namespace SolidPrinciples.LSP.Correct
+{
+    public class Rectangle : Shape
+    {
+        public double Width { get; protected set; }
+        public double Height { get; protected set; }
+        
+        public virtual void SetWidth(double width)
+        {
+            if (width <= 0)
+                throw new ArgumentOutOfRangeException();
+            
+            Width = width;
+        }
+
+        public virtual void SetHeight(double height)
+        {
+            if (height <= 0)
+                throw new ArgumentOutOfRangeException();
+
+            Height = height;
+        }
+
+        public override double Area()
+        {
+            return Width * Height;
+        }
+    }
+}
