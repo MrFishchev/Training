@@ -2,11 +2,11 @@ using System;
 
 namespace SolidPrinciples.LSP.Violate
 {
-    public class Rectangle
+    public class Rectangle : Shape
     {
         public double Width { get; protected set; }
         public double Height { get; protected set; }
-
+        
         public virtual void SetWidth(double width)
         {
             if (width <= 0)
@@ -21,6 +21,11 @@ namespace SolidPrinciples.LSP.Violate
                 throw new ArgumentOutOfRangeException();
 
             Height = height;
+        }
+
+        public override double Area()
+        {
+            return Width * Height;
         }
     }
 }

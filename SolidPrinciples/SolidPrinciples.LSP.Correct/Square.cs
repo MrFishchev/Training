@@ -2,7 +2,7 @@ using System;
 
 namespace SolidPrinciples.LSP.Correct
 {
-    public class Square
+    public class Square : Shape
     {
         public double Side { get; private set; }
 
@@ -12,6 +12,11 @@ namespace SolidPrinciples.LSP.Correct
                 throw new ArgumentOutOfRangeException();
             
             Side = side;
+        }
+
+        public override double Area()
+        {
+            return Side * Side;
         }
     }
 }
