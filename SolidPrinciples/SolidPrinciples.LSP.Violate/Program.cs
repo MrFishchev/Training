@@ -12,7 +12,7 @@ namespace SolidPrinciples.LSP.Violate
             DrawArea(rect);
         }
 
-        private static Rectangle SetSize(Rectangle rect, double width, double height)
+        public static Rectangle SetSize(Rectangle rect, double width, double height)
         {
             rect.SetWidth( width);
             rect.SetHeight(height);

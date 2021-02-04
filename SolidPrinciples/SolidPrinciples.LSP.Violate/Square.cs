@@ -9,8 +9,7 @@ namespace SolidPrinciples.LSP.Violate
             if (height <= 0)
                 throw new ArgumentOutOfRangeException();
             
-            Height = height;
-            Width = height;
+            Height = Width= height;
         }
 
         public override void SetWidth(double width)
@@ -18,8 +17,7 @@ namespace SolidPrinciples.LSP.Violate
             if (width <= 0)
                 throw new ArgumentOutOfRangeException();
 
-            Width = width;
-            Height = width;
+            Height = Width= width;
         }
     }
 }
