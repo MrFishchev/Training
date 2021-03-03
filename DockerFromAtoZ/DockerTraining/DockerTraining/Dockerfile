@@ -3,8 +3,8 @@
 FROM mcr.microsoft.com/dotnet/aspnet:5.0-buster-slim AS base
 WORKDIR /app
 
-ENV ASPNETCORE_URLS http://+:8001
-EXPOSE 8001
+ENV ASPNETCORE_URLS http://+:8000
+EXPOSE 8000
 
 FROM mcr.microsoft.com/dotnet/sdk:5.0-buster-slim AS build
 WORKDIR /src
